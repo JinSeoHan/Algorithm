@@ -1,0 +1,6 @@
+a = int(input())
+b = input()
+ca=a*int(b[2])
+cb=a*int(b[1])
+cc=a*int(b[0])
+print("{0}\n{1}\n{2}\n{3}".format(ca, cb, cc, ca+cb*10+cc*100))
