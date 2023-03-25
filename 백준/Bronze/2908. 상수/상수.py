@@ -1,0 +1,8 @@
+a, b = input().split()
+a = list(a)
+b = list(b)
+a.reverse()
+b.reverse()
+a = int(str().join(a))
+b = int(str().join(b))
+print(max(a, b))
