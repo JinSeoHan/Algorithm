@@ -1,9 +1,6 @@
-a = input().upper()
-d = {}
-for s in a:
-    if s not in d:
-        d[s] = 1
-    else:
-        d[s] += 1
-temp = [k for k, v in d.items() if v == max(d.values())]
-print(*temp) if len(temp) == 1 else print('?')
+s = input().upper()
+undu = list(set(s))
+d = []
+for u in undu:
+    d.append(s.count(u))
+print('?') if d.count(max(d)) > 1 else print(undu[d.index(max(d))])
