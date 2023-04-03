@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 n = int(input())
 money = [25, 10, 5, 1]
 res = [0] * 4
