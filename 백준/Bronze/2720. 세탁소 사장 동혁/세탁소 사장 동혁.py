@@ -1,12 +1,10 @@
 n = int(input())
+money = [25, 10, 5, 1]
+res = [0] * 4
 
-for _ in range(n):
+for i in range(n):
     n = int(input())
-    print(f'{n // 25}', end=' ')
-    n = n % 25
-    print(f'{n // 10}', end=' ')
-    n = n % 10
-    print(f'{n // 5}', end=' ')
-    n = n % 5
-    print(f'{n // 1}', end=' ')
-    n = n % 1
+    for j in range(4):
+        res[j] = n // money[j]
+        n %= money[j]
+    print(*res)
