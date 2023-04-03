@@ -1,11 +1,7 @@
 N, B = map(int, input().split())
-result = []
+number = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+result = ''
 while N > 0:
     N, mod = divmod(N, B)
-    result += [mod]
-for i in range(len(result)):
-    e = result.pop();
-    if e > 9:
-        print(chr(65+e-10), end='')
-    else:
-        print(str(e), end='')
+    result += number[mod]
+print(result[::-1])
