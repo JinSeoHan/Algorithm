@@ -1,4 +1,5 @@
-n = int(input())
+import sys
+n = int(sys.stdin.readline())
 l = []
 for i in range(n):
     l.append(list(map(int, input().split())));
