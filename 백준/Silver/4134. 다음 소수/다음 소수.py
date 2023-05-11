@@ -5,23 +5,18 @@ primeList = [2, 3]
 
 def isPrime(num : int) -> int:
     root = int(num**(1/2))
-
     if num < 2:
         return False
-    elif num < 4:
-        return True
-
+    
     for i in range(2, root+1):
         if num % i == 0:
-            return False
-        
+            return False  
+             
     return True
 
 def greaterPrime(a : int) -> int:
-    
-
     num = a
-
+    
     while True:
         if isPrime(num):
             return num
