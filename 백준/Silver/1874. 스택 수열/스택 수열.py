@@ -4,7 +4,7 @@ input = sys.stdin.readline
 n = int(input())
 lArr = []
 pushCount = 1
-resultString = ''
+resultString = list()
 isNo = False
 for i in range(1, n+1):
     num = int(input())
@@ -14,11 +14,11 @@ for i in range(1, n+1):
         while pushCount <= num:
             lArr.append(pushCount)
             pushCount += 1
-            resultString += '+'
+            resultString.append('+')
 
     if lArr[-1] == num:
         lArr.pop()
-        resultString += '-'
+        resultString.append('-')
     else:
         isNo = True
         break
