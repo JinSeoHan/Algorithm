@@ -21,6 +21,7 @@ for i in range(1, n+1):
         resultString += '-'
     else:
         isNo = True
+        break
         
 if isNo: 
     print('NO')
