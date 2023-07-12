@@ -4,7 +4,7 @@ input = sys.stdin.readline
 n, c = map(int, input().split())
 l = [0] + [int(input()) for _ in range(n)]
 l.sort()
-lo, hi = 1, l[-1]
+lo, hi = l[0], l[-1]
 while lo <= hi:
     mid = (hi+lo)//2
 
