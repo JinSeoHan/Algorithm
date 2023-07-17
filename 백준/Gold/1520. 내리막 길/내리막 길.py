@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10**5)
 input = sys.stdin.readline
 
 def dfs(x, y):
@@ -16,6 +16,5 @@ m, n = map(int, input().split())
 l = [list(map(int, input().split()))for r in range(m)]
 dp = [[-1]*n for r in range(m)]
 rp = [(0, 1), (1, 0), (0, -1), (-1,0)]
-
 
 print(dfs(0,0))
