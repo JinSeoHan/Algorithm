@@ -6,10 +6,8 @@ input = sys.stdin.readline
 count = 1
 def BFS(start):
     global count
-    
-    if edge[start]:
-        edge[start].sort(reverse=True)
 
+    edge[start].sort(reverse=True)
     for e in edge[start]:
         if visited[e] == 0:
             count += 1
