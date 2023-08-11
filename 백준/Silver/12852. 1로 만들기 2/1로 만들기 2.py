@@ -1,23 +1,27 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
+INF = 2*10**9
 
 N = int(input())
-dp = [(0, [1]), (0, [1])]
+visited = [False] * (N+1)
 
-for i in range(2, N+1):
-    case = [(dp[i-1][0], i-1)]
-    if i % 3 == 0:
-        case.append((dp[i//3][0], i//3))
-    if i % 2 == 0:
-        case.append((dp[i//2][0], i//2))
-    minCostIndexTuple = min(case)
+queue = deque()
+queue.append((N, 0, [N]))
+while queue:
+    currNum, cost, currGraph = queue.popleft()
 
-    minCost = minCostIndexTuple[0]
-    minIdx = minCostIndexTuple[1]
-    minGraph = dp[minIdx][1].copy()
+    if currNum == 1:
+        break
+    if visited[currNum]:
+        continue
 
-    minGraph.append(i)
-    dp.append((minCost+1,minGraph))
+    visited[currNum] = True
+    queue.append((currNum-1, cost + 1, currGraph[::] + [currNum-1]))
+    if currNum % 3 == 0:
+        queue.append((currNum//3, cost + 1, currGraph[::] + [currNum//3]))
+    if currNum % 2 == 0:
+        queue.append((currNum//2, cost + 1, currGraph[::] + [currNum//2]))
 
-print(dp[N][0])
-print(*dp[N][1][::-1])
+print(cost)
+print(*currGraph)
