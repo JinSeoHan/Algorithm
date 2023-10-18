@@ -16,7 +16,6 @@ def solution(m, n, board):
         checked = [[False]*m for r in range(n)]
         for i in range(n):
             for j in range(m):
-                target = nBoard[i][j]
                 checkBoard(nBoard, checked, i, j)
         #체크 삭제 및 채우기
         flag = False
