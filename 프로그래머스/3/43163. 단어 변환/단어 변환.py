@@ -1,9 +1,15 @@
+mv = None
 def solution(begin, target, words):
+    global mv
+    mv = len(words)
     if target not in words: return 0
-    return DFS(begin, target, words, 0)
+    DFS(begin, target, words, 0)
+    return mv
         
 def DFS(cWord, target, words, cnt):
+    global mv
     if cWord == target:
+        mv = min(mv, cnt)
         return cnt
     for i, nWord in enumerate(words):
         if not isOneDiff(cWord, nWord): continue
@@ -11,7 +17,6 @@ def DFS(cWord, target, words, cnt):
             del words[i]
             v = DFS(nWord, target, words, cnt+1)
             words.insert(i, nWord)
-            if v : return v
     return 0
 def isOneDiff(a, b):
     cnt = 0
