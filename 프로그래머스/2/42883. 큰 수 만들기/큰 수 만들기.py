@@ -21,6 +21,7 @@ def solution(number, k):
         #스택을 채움
         stack.append(num)
         if flag: break
+    #잔여개수 제거
     while stack and cnt != k:
         stack.pop()
         cnt += 1
