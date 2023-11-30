@@ -7,4 +7,4 @@ def solution(w,h):
     
     cnt = rateW + rateH - 1
     
-    return w* h - w // rateW * cnt
+    return (w * h) - (w // rateW * cnt)
