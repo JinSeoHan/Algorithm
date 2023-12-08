@@ -1,3 +1,4 @@
+#greedy알고리즘
 def solution(cap, n, deliveries, pickups):
     answer = 0
     
