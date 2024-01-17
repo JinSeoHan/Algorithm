@@ -11,26 +11,19 @@ for row in range(n):
 def validate(i, j):
     return 0 <= i < n and 0 <= j < m
 
-def bfs(i, j):
-    queue = deque()
-    queue.append((i,j,0))
-    visited = [[False]*m for row in range(n)]
-
+def bfs():
     while queue:
-        ci, cj, cDist = queue.popleft()
+        ci, cj = queue.popleft()
 
         for dir in [(0,1),(1,0),(0,-1),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]:
             ni, nj = ci+dir[0], cj+dir[1]
+            if validate(ni, nj) and not board[ni][nj]:
+                board[ni][nj] += board[ci][cj] + 1
+                queue.append((ni,nj))
 
-            if validate(ni, nj) and not visited[ni][nj]:
-                if board[ni][nj] == 1:
-                    return cDist + 1
-                queue.append((ni,nj,cDist+1))
-                visited[ni][nj] = True
-
-result = 0
+queue = deque()
 for i in range(n):
     for j in range(m):
-        if not board[i][j]: result = max(result, bfs(i,j))
-
-print(result)
+        if board[i][j] == 1: queue.append((i,j))
+bfs()
+print(max(map(max,board))-1)
