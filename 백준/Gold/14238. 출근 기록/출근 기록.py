@@ -25,17 +25,17 @@ def dfs(a, b, c, pre, prepre):
     # 여분의 A값이 남아 있다면
     if a < count['A']:
         result[a+b+c] = 'A'
-        if dfs(a+1, b, c, A, pre): return True
+        dfs(a+1, b, c, A, pre)
     # 여분의 B값이 남아 있다면
     if b < count['B']:
         result[a+b+c] = 'B'
         if pre != B:
-            if dfs(a, b+1, c, B, pre): return True
+            dfs(a, b+1, c, B, pre)
     # 여분의 C값이 남아 있다면
     if c < count['C']:
         result[a+b+c] = 'C'
         if pre != C and prepre != C:
-            if dfs(a, b, c+1, C, pre): return True
+            dfs(a, b, c+1, C, pre)
     return False
 
 dfs(0,0,0,0,0)
