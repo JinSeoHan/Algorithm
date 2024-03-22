@@ -1,14 +1,11 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
 
 board = [list(map(int, input().split())) for i in range(19)]
-visited = [[[False]*4 for col in range(19)] for row in range(19)]
 
 #범위 체크
 def valid(i, j):
     return 0 <= i < 19 and 0 <= j < 19
-
 # directions방향의 돌 개수를 찾음
 def dfs(i, j, visited, target, directions):
     visited[i][j] = True
@@ -18,7 +15,6 @@ def dfs(i, j, visited, target, directions):
         if valid(ni, nj) and not visited[ni][nj] and target == board[ni][nj]:
             cnt += dfs(ni, nj, visited, target, directions)
     return cnt + 1
-
 # 시작점을 찾음
 def getLeftEnd(i, j, rop, cop):
     target = board[i][j]
@@ -27,7 +23,6 @@ def getLeftEnd(i, j, rop, cop):
         i += rop
         j += cop
     return i-rop, j-cop
-    
 #이동방향 정보 : 가로,세로,가로위,가로아래
 directionsInfo = [[(0,1),(0,-1)],[(1,0),(-1,0)],[(-1,1),(1,-1)],[(1,1),(-1,-1)]]
 def gameResult(si,sj):
