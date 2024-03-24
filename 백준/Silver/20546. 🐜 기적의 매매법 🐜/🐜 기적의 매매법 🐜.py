@@ -1,63 +1,50 @@
-money = int(input())
-stocks = list(map(int, input().split()))
+import sys
+input = sys.stdin.readline
 
-bnp = 0 # bnp 주식개수
-timing = 0 # timing 주식개수
+cash = int(input())
+stockPrices = list(map(int, input().split()))
 
+def getBNP(cash, stockPrices):
+    # 주식수
+    stockCnt = 0
+    for stockPrice in stockPrices:
+        if stockPrice <= cash:
+            stockCnt += cash // stockPrice # 구입한 주식개수
+            cash -= (cash // stockPrice) * stockPrice # 잔돈저장
+    return cash + stockCnt*stockPrices[-1]
 
-# bnp
-bnp_money = money
-bnp_result = 0
-for stock in stocks:
-    if stock <= bnp_money:
-        bnp += (bnp_money // stock)
-        bnp_money -= (bnp_money // stock) * stock
-        # print(bnp, bnp_money)
-
-bnp_result = (stocks[13] * bnp) + bnp_money
-
-down_count = 0 # 연속으로 내려간 날
-up_count = 0 # 연속으로 올라간날 
-before_stock = 0 # 현재 stock과 비교할 그 전날 stock
-now_stock = 0 # 현재 stock
-
-
-# timing
-timing_money = money
-timing_result = 0
-for i in range(1, len(stocks)):
-    before_stock = stocks[i-1]
-    now_stock = stocks[i]
-    # 매수
-    if before_stock > now_stock:
-        down_count += 1
-        up_count = 0
-        if down_count >= 3:
-            timing += (timing_money // stocks[i])
-            # print(timing_money // stocks[i])
-            timing_money -= (timing_money // stocks[i]) * stocks[i]
-
-    # 매도
-    if before_stock < now_stock:
-        up_count += 1
-        down_count = 0
-        if up_count >= 3:
-            timing_money += timing * stocks[i] 
-            timing = 0 
-    
-    # 초기화
-    if before_stock == now_stock:
-        down_count = 0
-        up_count = 0
-    # print(now_stock, up_count, down_count, timing, timing_money)
-
-timing_result = (stocks[13] * timing) + timing_money
-# print(bnp_result, timing_result)
+def getTiming(cash, stockprices):
+    # 주식수
+    stockCnt = 0
+    upCnt = 0
+    downCnt = 0
+    for i in range(1, len(stockprices)):#0,1,2,3
+        # 매수타이밍 체크
+        if stockprices[i-1] > stockprices[i]:
+            downCnt += 1
+            upCnt = 0
+            if downCnt >= 3:
+                stockCnt += cash // stockprices[i]
+                cash %= stockprices[i]
+        # 매도타이밍 체크
+        if stockprices[i-1] < stockprices[i]:
+            upCnt += 1
+            downCnt = 0
+            if upCnt >= 3:
+                cash += stockprices[i] * stockCnt
+                stockCnt = 0
+        # 값이 같이면 초기화
+        if stockPrices[i-1] == stockprices[i]:
+            upCnt, downCnt = 0, 0
+    return cash + stockCnt * stockprices[-1]
 
 
-if bnp_result > timing_result:
-    print('BNP')
-elif bnp_result < timing_result:
-    print('TIMING')
+bnp = getBNP(cash, stockPrices)
+timing = getTiming(cash, stockPrices)
+
+if bnp > timing:
+    print("BNP")
+elif bnp < timing:
+    print("TIMING")
 else:
-    print('SAMESAME')
+    print("SAMESAME")
