@@ -1,16 +1,18 @@
-N = int(input())
-count = 0
-for _ in range(N):
-    stack = ['_']
-    result = True
-    s = input()
-    for i in s:
-        if stack[-1] == i:
-            stack.append(i)
-            continue
-        elif i in stack:
-            result = False
-            break
-        stack.append(i)
-    if result: count += 1
-print(count)
+def isGroupWord(word):
+
+    prev = word[0]
+    s = set()
+    for i in range(len(word)):
+        if (word[i] not in s) or prev == word[i]:
+            prev = word[i]
+            s.add(word[i])
+        else:
+            return False
+
+    return True
+
+result = 0
+for _ in range(int(input())):
+    word = input()
+    if isGroupWord(word): result += 1
+print(result)
