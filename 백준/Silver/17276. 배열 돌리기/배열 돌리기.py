@@ -8,16 +8,12 @@ def turn(board : list, n):
     # 주 대각선 -> 중앙 열
     for i in range(n):
         newBoard[i][(n)//2] = board[i][i]
-    # 중앙열 -> 부 대각선
-    for i in range(n):
+        # 중앙열 -> 부 대각선
         newBoard[i][n-i-1] = board[i][(n)//2]
-    # 부 대각선 -> 중앙 행
-    for i in range(n):
+        # 부 대각선 -> 중앙 행
         newBoard[(n)//2][n-i-1] = board[i][n-i-1]
-    # 중앙 행 -> 주 대각선
-    for i in range(n):
+        # 중앙 행 -> 주 대각선
         newBoard[i][i] = board[(n)//2][i]
-
     return newBoard
 
 for _ in range(int(input())):
