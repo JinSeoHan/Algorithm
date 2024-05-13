@@ -3,47 +3,28 @@ input = sys.stdin.readline
 
 board = [list(map(int, input().split())) for i in range(19)]
 
-#범위 체크
-def valid(i, j):
+def isBound(i, j):
     return 0 <= i < 19 and 0 <= j < 19
-# directions방향의 돌 개수를 찾음
-def dfs(i, j, visited, target, directions):
-    visited[i][j] = True
-    cnt = 0
-    for dir in directions:
-        ni, nj = i + dir[0], j + dir[1]
-        if valid(ni, nj) and not visited[ni][nj] and target == board[ni][nj]:
-            cnt += dfs(ni, nj, visited, target, directions)
-    return cnt + 1
-# 시작점을 찾음
-def getLeftEnd(i, j, rop, cop):
-    target = board[i][j]
-    while valid(i, j):
-        if board[i][j] != target: break
-        i += rop
-        j += cop
-    return i-rop, j-cop
-#이동방향 정보 : 가로,세로,가로위,가로아래
-directionsInfo = [[(0,1),(0,-1)],[(1,0),(-1,0)],[(-1,1),(1,-1)],[(1,1),(-1,-1)]]
-def gameResult(si,sj):
-    ri, rj = None, None
-    target = board[si][sj]
+def isVictory(i, j):
+    target = board[i][j] 
+    isSuccess = False
 
-    # 이동방향으로 이동
-    for dirInfo in directionsInfo:
-        visited = [[False]*19 for r in range(19)]
-        cnt = dfs(si,sj,visited,target, dirInfo)
-        if cnt == 5:
-            rop, cop = dirInfo[1][0], dirInfo[1][1]
-            ri, rj = getLeftEnd(si, sj, rop, cop)
-    return ri, rj
+    for dir in [(1,0),(1,1),(0,1),(-1,1)]:# 남, 남서, 동, 북동
+        for diff in range(6):
+            currI, currj = i+dir[0]*diff, j+dir[1]*diff
+            if not isBound(currI, currj) or board[currI][currj] != target: break
+            isSuccess = True if diff == 4 else False
+        if isSuccess:
+            if isBound(i-dir[0], j-dir[1]) and board[i-dir[0]][j-dir[1]] == target:
+                isSuccess = False
+                continue
+            return True
+    return False
 
 for i in range(19):
     for j in range(19):
-        if board[i][j] == 0: continue
-        ri, rj = gameResult(i,j)
-        if (ri, rj) != (None, None):
+        if board[i][j] and isVictory(i, j):
             print(board[i][j])
-            print(ri+1, rj+1)
-            exit()
+            print(i+1, j+1)
+            exit(0)
 print(0)
